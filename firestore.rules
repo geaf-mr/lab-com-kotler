@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function teacherUser() { return signedIn() && request.auth.token.firebase.sign_in_provider == 'password'; }
+    match /marketingSessions/{sessionId} {
+      allow read: if signedIn();
+      allow create: if teacherUser() && request.resource.data.ownerId == request.auth.uid;
+      allow update, delete: if teacherUser() && resource.data.ownerId == request.auth.uid && request.resource.data.ownerId == resource.data.ownerId;
+      match /participants/{participantId} {
+        allow read: if signedIn();
+        allow create, update: if signedIn() && participantId == request.auth.uid && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 80 && request.resource.data.role in ['teacher', 'team'];
+        allow delete: if teacherUser() && get(/databases/$(database)/documents/marketingSessions/$(sessionId)).data.ownerId == request.auth.uid;
+      }
+      match /responses/{responseId} {
+        allow read: if signedIn();
+        allow create, update: if signedIn() && request.resource.data.participantId == request.auth.uid && request.resource.data.team is string && request.resource.data.item is string && request.resource.data.round in [1, 2];
+        allow delete: if teacherUser() && get(/databases/$(database)/documents/marketingSessions/$(sessionId)).data.ownerId == request.auth.uid;
+      }
+    }
+  }
+}
