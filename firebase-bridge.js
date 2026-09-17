@@ -1,6 +1,6 @@
-import{initializeApp}from"https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import{getAuth,signInWithEmailAndPassword,signInAnonymously,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import{getFirestore,doc,getDoc,setDoc,collection,onSnapshot,serverTimestamp}from"https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import{initializeApp}from"firebase/app";
+import{getAuth,signInWithEmailAndPassword,signInAnonymously,onAuthStateChanged}from"firebase/auth";
+import{getFirestore,doc,getDoc,setDoc,collection,onSnapshot,serverTimestamp}from"firebase/firestore";
 const config={apiKey:"AIzaSyCTmnBbPZzXv5NTn8XNg_bhkLneQeQ3nyA",authDomain:"lab-com-kotler.firebaseapp.com",projectId:"lab-com-kotler",storageBucket:"lab-com-kotler.firebasestorage.app",messagingSenderId:"899907960409",appId:"1:899907960409:web:bd423b815a75f3f30a7b48"};
 const app=initializeApp(config,"marketing-kotler"),auth=getAuth(app),db=getFirestore(app),KEY="comercializacion-kotler-full-room",nativeSet=localStorage.setItem.bind(localStorage);
 let applying=false,currentCode=null,main={},members={},responses={},unsubs=[];const ready=new Promise(resolve=>onAuthStateChanged(auth,resolve));
