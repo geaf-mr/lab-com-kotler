@@ -1,9 +1,13 @@
 export const modules=[
- {id:"entorno",label:"1. Diagnóstico multidimensional",short:"Entorno",chapter:"Cap. 3"},
- {id:"investigacion",label:"2. Diseño metodológico y sesgos",short:"Investigación",chapter:"Cap. 4"},
- {id:"directorio",label:"3. Simulador de directorio",short:"Directorio",chapter:"Casos"},
- {id:"cuantitativo",label:"4. Aritmética de marketing",short:"Cálculos",chapter:"Laboratorio"},
- {id:"tarjetas",label:"5. Tarjetas de maestría",short:"Conceptos",chapter:"Cap. 3 y 4"}
+ {id:"entorno",label:"3–4 · Diagnóstico del entorno",short:"Entorno",chapter:"Cap. 3"},
+ {id:"investigacion",label:"3–4 · Investigación y sesgos",short:"Investigación",chapter:"Cap. 4"},
+ {id:"directorio",label:"3–4 · Simulador de directorio",short:"Directorio",chapter:"Casos 3–4"},
+ {id:"cuantitativo",label:"3–4 · Aritmética de marketing",short:"Cálculos",chapter:"Laboratorio"},
+ {id:"consumidor5",label:"5–6 · Caja negra del consumidor",short:"Consumidor",chapter:"Cap. 5"},
+ {id:"decision5",label:"5–6 · Decisión y adopción",short:"Decisión",chapter:"Cap. 5"},
+ {id:"negocios6",label:"5–6 · Mercados de negocios",short:"B2B",chapter:"Cap. 6"},
+ {id:"compras6",label:"5–6 · Centro y proceso de compra",short:"Compras B2B",chapter:"Cap. 6"},
+ {id:"tarjetas",label:"3–6 · Tarjetas de maestría",short:"Conceptos",chapter:"Cap. 3 a 6"}
 ];
 
 const choice=(id,module,title,context,options,answer,explanation,meta={})=>({id,module,type:"choice",title,context,options,answer,explanation,...meta});
@@ -27,6 +31,28 @@ export const activities=[
  {id:"q3",module:"cuantitativo",type:"number",title:"Utilidad por cliente clave",context:"De 40.000 clientes, 26% produce 82% de USD 10 millones en utilidades.",question:"¿Cuánta utilidad genera en promedio cada cliente clave?",answer:788,tolerance:1,explanation:"USD 8.200.000 / 10.400 clientes = aproximadamente USD 788 por cliente."}
 ];
 
+// Capítulos 5 y 6 - edición suministrada por la cátedra.
+activities.push(
+ {id:"c5-1",module:"consumidor5",type:"matrix",title:"Dentro de la caja negra",context:"Una estudiante ve una campaña de una notebook, consulta reseñas de su grupo de referencia y decide esperar una promoción porque teme equivocarse.",fields:[{label:"Entrada",options:["estímulo de marketing","respuesta de compra","factor poscompra"]},{label:"Influencia dominante",options:["cultural","social","personal","psicológica"]},{label:"Salida observable",options:["preferencia y momento de compra","subcultura","motivación inconsciente"]}],answer:["estímulo de marketing","social","preferencia y momento de compra"],explanation:"El anuncio ingresa como estímulo, el grupo opera como influencia social y la espera se observa como respuesta de compra."},
+ {id:"c5-2",module:"consumidor5",type:"matrix",title:"Radiografía de una compra Apple",context:"Un comprador elige un iPhone porque expresa quién es, sus amistades lo recomiendan y percibe que la interfaz es más sencilla.",fields:[{label:"Identidad",options:["cultura","autoconcepto","ocupación"]},{label:"Entorno cercano",options:["grupo de referencia","clase social","situación económica"]},{label:"Proceso interno",options:["percepción","familia","rol y estatus"]}],answer:["autoconcepto","grupo de referencia","percepción"],explanation:"El caso combina un factor personal —autoconcepto—, uno social —grupo— y uno psicológico —percepción selectiva—."},
+ choice("c5-3","consumidor5","¿Qué tipo de conducta de compra?","Una pareja compara durante semanas marcas de automóviles costosos, percibe diferencias importantes y considera alto el riesgo.",["Compra habitual","Búsqueda de variedad","Compra compleja","Compra que reduce disonancia"],2,"Alta participación y diferencias importantes entre marcas caracterizan la conducta de compra compleja."),
+ choice("c5-4","consumidor5","Cuando casi no hay diferencias","Una organización familiar contrata un servicio costoso, encuentra ofertas muy similares y luego busca argumentos que confirmen su elección.",["Compra compleja","Compra que reduce disonancia","Compra habitual","Búsqueda de variedad"],1,"La alta participación con pocas diferencias percibidas puede producir disonancia posterior."),
+ {id:"c5-5",module:"consumidor5",type:"text",title:"Mapa de influencias Porsche",context:"Porsche sostiene que sus compradores ven el vehículo como una expresión de autoimagen y estilo de vida, no sólo como transporte.",prompt:"Construyan una explicación que conecte autoconcepto, estilo de vida, motivación y grupo de referencia.",rubric:["Distingue factor personal y psicológico","Conecta la marca con identidad","Explica una conducta observable"],explanation:"La marca funciona como símbolo del yo real o ideal y se refuerza socialmente."},
+ {id:"c5-6",module:"decision5",type:"sequence",title:"El viaje de decisión",context:"Una persona detecta que necesita una computadora, busca información, compara alternativas, compra y evalúa la experiencia.",steps:["Reconocimiento de la necesidad","Búsqueda de información","Evaluación de alternativas"],answer:[0,1,2],explanation:"Estas son las tres primeras etapas; luego siguen decisión de compra y comportamiento posterior."},
+ {id:"c5-7",module:"decision5",type:"allocation",title:"¿Dónde invertir para acelerar adopción?",context:"Una empresa lanza un dispositivo doméstico novedoso y debe distribuir su esfuerzo para reducir incertidumbre.",options:["Ventaja relativa y demostración","Compatibilidad y prueba","Observabilidad y referentes"],answer:0,prompt:"Distribuyan 100 puntos de inversión entre tres palancas de adopción.",explanation:"La adopción se acelera cuando la innovación ofrece ventaja relativa, compatibilidad, posibilidad de prueba, baja complejidad y resultados observables."},
+ choice("c5-8","decision5","Categorías de adoptadores","Una clienta compra una innovación después de observar a referentes respetados, pero antes que la mayoría del mercado.",["Innovadora","Adoptadora temprana","Mayoría temprana","Mayoría tardía"],1,"Los adoptadores tempranos suelen ser líderes de opinión y legitiman la innovación ante otros."),
+ {id:"c5-9",module:"decision5",type:"text",title:"Intervenir después de la compra",context:"Un cliente duda si eligió bien una notebook y presta atención a comentarios negativos sobre su marca.",prompt:"Diseñen una intervención poscompra que reduzca disonancia sin manipular al cliente.",rubric:["Reconoce la disonancia","Aporta evidencia y soporte","No oculta limitaciones"],explanation:"El seguimiento, la asistencia y la confirmación honesta de valor reducen disonancia y favorecen recompra."},
+ {id:"c6-1",module:"negocios6",type:"matrix",title:"Del consumidor al proveedor",context:"Cae la venta de computadoras hogareñas y, semanas después, los fabricantes reducen pedidos de microprocesadores.",fields:[{label:"Tipo de demanda",options:["derivada","elástica directa","institucional"]},{label:"Mercado",options:["consumo","negocios","gubernamental"]},{label:"Efecto esperado",options:["demanda estable","caída amplificada","sin relación"]}],answer:["derivada","negocios","caída amplificada"],explanation:"La demanda de componentes deriva de la demanda final y puede fluctuar con mayor intensidad."},
+ choice("c6-2","negocios6","Situación de compra","Una clínica recompra mensualmente el mismo insumo al proveedor aprobado, sin modificar especificaciones.",["Recompra directa","Recompra modificada","Tarea nueva","Compra gubernamental"],0,"La recompra directa es rutinaria y suele automatizarse con proveedores aprobados."),
+ choice("c6-3","negocios6","Cuando cambia la especificación","Una fábrica mantiene la categoría de equipamiento, pero exige menor consumo energético y reabre la evaluación de proveedores.",["Recompra directa","Recompra modificada","Tarea nueva","Compra personal"],1,"Cambiar especificaciones o condiciones transforma la operación en una recompra modificada."),
+ {id:"c6-4",module:"negocios6",type:"text",title:"Boeing y la venta de alto riesgo",context:"La compra de 50 aviones involucra años de análisis, múltiples especialistas, simulaciones y una relación de largo plazo.",prompt:"Expliquen tres diferencias decisivas frente a la compra de un pasaje aéreo por un consumidor.",rubric:["Unidad de compra profesional","Proceso formal y complejo","Relación comprador-vendedor"],explanation:"El mercado B2B concentra compradores, profesionaliza la compra y formaliza decisiones de alto riesgo."},
+ {id:"c6-5",module:"compras6",type:"matrix",title:"¿Quién hace qué en el centro de compras?",context:"En un hospital, médicos especifican prestaciones, sistemas filtra compatibilidad y finanzas autoriza el contrato.",fields:[{label:"Médicos",options:["usuarios/influyentes","guardianes","compradores"]},{label:"Sistemas",options:["decisor","guardián/influyente","usuario final"]},{label:"Finanzas",options:["iniciador","decisor/aprobador","usuario"]}],answer:["usuarios/influyentes","guardián/influyente","decisor/aprobador"],explanation:"El centro de compras reúne roles diferentes; una misma persona puede ocupar más de uno."},
+ {id:"c6-6",module:"compras6",type:"allocation",title:"Comité de compra B2B",context:"Una universidad evalúa una plataforma educativa para cinco años.",options:["Adecuación técnica","Costo total y riesgo","Soporte y relación"],answer:0,prompt:"Distribuyan 100 puntos de ponderación entre los criterios del pliego.",explanation:"La decisión organizacional combina criterios económicos, técnicos, de servicio y relacionales."},
+ {id:"c6-7",module:"compras6",type:"text",title:"Especificación de necesidades",context:"Una empresa detecta fallas de coordinación y considera adquirir una plataforma colaborativa al estilo Cisco.",prompt:"Redacten una especificación general de necesidades sin mencionar marcas ni soluciones predeterminadas.",rubric:["Define el problema","Incluye resultados medibles","Evita sesgo hacia un proveedor"],explanation:"Definir necesidades antes de especificar productos mejora la evaluación de alternativas."},
+ choice("c6-8","compras6","E-procurement: beneficio y riesgo","Una organización migra licitaciones rutinarias a una plataforma electrónica.",["Sólo reduce personal","Amplía acceso y eficiencia, pero exige controles de seguridad","Elimina la negociación y todo riesgo","Convierte la compra B2B en consumo"],1,"La adquisición electrónica reduce costos y acelera procesos, pero introduce riesgos de seguridad y dependencia."),
+ {id:"c6-9",module:"compras6",type:"text",title:"Mercado gubernamental bajo restricciones",context:"Un municipio debe comprar equipamiento con presupuesto limitado, transparencia pública y procedimientos formales.",prompt:"Propongan una estrategia del proveedor que cree valor sin vulnerar igualdad, trazabilidad ni competencia.",rubric:["Respeta procedimiento formal","Explicita costo total","Ofrece evidencia verificable"],explanation:"Los mercados gubernamentales exigen documentación, transparencia y atención al costo total y al interés público."}
+);
+
 export const cards=[
  ["Capítulo 3","Red de transferencia de valor","Empresa, proveedores, distribuidores y clientes colaboran para mejorar el desempeño de todo el sistema de entrega de valor."],
  ["Capítulo 3","Públicos estratégicos","Grupos con interés o impacto real o potencial: financieros, medios, gobierno, ciudadanía, locales, general e internos."],
@@ -39,7 +65,19 @@ export const cards=[
  ["Capítulo 4","Investigación causal","Diseño para probar relaciones de causa y efecto mediante comparación y control de factores externos."],
  ["Capítulo 4","Etnografía de mercado","Observación cualitativa del consumidor en su contexto para descubrir necesidades no verbalizadas."],
  ["Capítulo 4","Data warehouse y mining","Consolidación de datos y análisis de patrones de compra, relaciones y señales predictivas."],
- ["Capítulo 4","Chief Privacy Officer","Responsable de la gobernanza y protección de datos personales y del cumplimiento ético y regulatorio."]
+ ["Capítulo 4","Chief Privacy Officer","Responsable de la gobernanza y protección de datos personales y del cumplimiento ético y regulatorio."],
+ ["Capítulo 5","Caja negra del comprador","Características del comprador y proceso de decisión que transforman estímulos en respuestas observables."],
+ ["Capítulo 5","Grupos de referencia","Grupos que funcionan como puntos de comparación e influyen directa o indirectamente en actitudes y conductas."],
+ ["Capítulo 5","Estilo de vida","Patrón de vida expresado en actividades, intereses y opiniones; va más allá de la clase social o personalidad."],
+ ["Capítulo 5","Autoconcepto","Las posesiones contribuyen a la identidad: somos y expresamos parte de lo que consumimos."],
+ ["Capítulo 5","Disonancia cognoscitiva","Incomodidad posterior a la compra causada por conflicto o dudas frente a las desventajas de la elección."],
+ ["Capítulo 5","Difusión de innovaciones","Proceso por el que una idea o producto nuevo se extiende entre los miembros de un sistema social."],
+ ["Capítulo 6","Demanda derivada","La demanda industrial proviene, en última instancia, de la demanda de bienes y servicios de consumo."],
+ ["Capítulo 6","Centro de compras","Conjunto de participantes que comparten roles de iniciador, usuario, influyente, comprador, decisor y guardián."],
+ ["Capítulo 6","Recompra directa","Situación rutinaria en la que se vuelve a ordenar sin modificaciones relevantes."],
+ ["Capítulo 6","Recompra modificada","El comprador desea cambiar especificaciones, precios, condiciones o proveedores."],
+ ["Capítulo 6","Tarea nueva","Compra por primera vez que exige más información, participantes y deliberación."],
+ ["Capítulo 6","Adquisición electrónica","Compra organizacional en línea que mejora eficiencia y acceso, con riesgos de seguridad y dependencia."]
 ].map((x,i)=>({id:`c${i+1}`,tag:x[0],title:x[1],text:x[2]}));
 
 // Mecánicas específicas: el contenido no se reduce a selección única.
@@ -57,3 +95,4 @@ activities.filter(a=>a.module==="entorno").forEach(a=>Object.assign(a,{type:"mat
 Object.assign(activities.find(a=>a.id==="i1"),{type:"sequence",steps:["Explorar ocasiones de uso","Formular hipótesis de canibalización","Experimentar en plazas comparables"],answer:[0,1,2]});
 Object.assign(activities.find(a=>a.id==="i4"),{type:"text",prompt:"Reescriban la pregunta de manera neutral y con una escala equilibrada.",rubric:["No anticipa superioridad","Evita adjetivos valorativos","Incluye opciones equilibradas"]});
 activities.filter(a=>a.module==="directorio").forEach(a=>Object.assign(a,{type:"allocation",prompt:"Distribuyan 100 puntos de apoyo del directorio entre los planes y defiendan la asignación."}));
+activities.filter(a=>/^(c5|c6)-/.test(a.id)&&!a.options).forEach(a=>a.options=["Producción del equipo"]);
